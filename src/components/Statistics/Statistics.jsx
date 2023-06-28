@@ -9,15 +9,13 @@ export const Statistics = ({
   positivePercentage,
 }) => {
   return (
-    <StatsList key={crypto.randomUUID()}>
-      <StatsItem key={crypto.randomUUID()}>Good: {good}</StatsItem>
-      <StatsItem key={crypto.randomUUID()}>Neutral: {neutral}</StatsItem>
-      <StatsItem key={crypto.randomUUID()}>Bad: {bad}</StatsItem>
-      <StatsItem key={crypto.randomUUID()}>Total: {total}</StatsItem>
+    <StatsList>
+      <StatsItem>Good: {good}</StatsItem>
+      <StatsItem>Neutral: {neutral}</StatsItem>
+      <StatsItem>Bad: {bad}</StatsItem>
+      <StatsItem>Total: {total}</StatsItem>
 
-      <StatsItem key={crypto.randomUUID()}>
-        Positive Feedback:{positivePercentage}
-      </StatsItem>
+      <StatsItem>Positive Feedback:{positivePercentage}</StatsItem>
     </StatsList>
   );
 };
