@@ -2,8 +2,8 @@ import { FeedbackOptions } from 'components/FeedbackOptions/FeedbackOptions';
 import { Statistics } from 'components/Statistics/Statistics';
 import { Notification } from 'components/Notification/Notification';
 import { Section } from 'components/Section/Section';
-import { useState, useEffect, useReducer } from 'react';
-import { INIT_STATE } from 'INIT_STATE';
+import { useReducer } from 'react';
+
 const reducer = (state, action) => {
   console.log(state);
   if (action === 'good') {
