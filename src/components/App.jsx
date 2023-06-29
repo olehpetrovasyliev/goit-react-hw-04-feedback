@@ -2,26 +2,35 @@ import { FeedbackOptions } from 'components/FeedbackOptions/FeedbackOptions';
 import { Statistics } from 'components/Statistics/Statistics';
 import { Notification } from 'components/Notification/Notification';
 import { Section } from 'components/Section/Section';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import { INIT_STATE } from 'INIT_STATE';
-
+const reducer = (state, action) => {
+  console.log(state);
+  if (action.type === 'good') {
+    return { ...state, good: state.good + 1 };
+  } else if (action.type === 'neutral') {
+    return { ...state, neutral: state.neutral + 1 };
+  } else {
+    return { ...state, bad: state.bad + 1 };
+  }
+};
 export const App = () => {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
+  // const [good, setGood] = useState(0);
+  // const [neutral, setNeutral] = useState(0);
+  // const [bad, setBad] = useState(0);
+  const INIT_STATE = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
 
-  // const [feedback, setFeedback] = useState({ ...INIT_STATE });
+  const [state, dispatch] = useReducer(reducer, INIT_STATE);
 
-  useEffect(() => {
-    console.log('hi');
-  }, [good]);
   const countTotalFeedback = () => {
+    const { good, bad, neutral } = state;
     return good + bad + neutral;
   };
 
-  const leaveFeedback = () => {
-    setGood(prev => prev + 1);
-  };
   // // const
 
   return (
@@ -29,7 +38,7 @@ export const App = () => {
       <Section title="Please leave feedback">
         <FeedbackOptions
           options={['good', 'neutral', 'bad']}
-          onLeaveFeedback={leaveFeedback}
+          onLeaveFeedback={dispatch}
         />
       </Section>
 
@@ -38,12 +47,12 @@ export const App = () => {
           <>
             <Section title={'Statistics'}>
               <Statistics
-                good={good}
-                neutral={neutral}
-                bad={bad}
+                {...state}
                 total={countTotalFeedback()}
                 positivePercentage={
-                  ' ' + ((good / countTotalFeedback()) * 100).toFixed(0) + '%'
+                  ' ' +
+                  ((state.good / countTotalFeedback()) * 100).toFixed(0) +
+                  '%'
                 }
               />
             </Section>
